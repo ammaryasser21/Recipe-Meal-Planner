@@ -1,0 +1,181 @@
+<app-navbar class="sticky top-0 z-50 bg-white shadow-md"></app-navbar>
+<div class="container px-4 py-8 mx-auto">
+  <div class="overflow-hidden bg-white rounded-lg shadow-md details-container">
+    <div class="px-6 py-4 details" *ngIf="recipe$ | async as recipe; else loading">
+      <div class="flex items-start justify-between mb-6">
+        <h1 class="text-3xl font-bold text-gray-900 title">
+          {{ recipe.title }}
+        </h1>
+        <button
+          (click)="toggleFollow(recipe)"
+          class="flex items-center text-gray-600 transition duration-300 hover:text-gray-800 focus:outline-none"
+        >
+          <i
+            class="mr-1 fa"
+            [ngClass]="isFollowing ? 'fa-user-minus' : 'fa-user-plus'"
+          ></i>
+          <p class="text-sm">{{ isFollowing ? "Unfollow" : "Follow" }}</p>
+        </button>
+      </div>
+      <p class="mb-6 leading-relaxed text-gray-700 description">{{ recipe.description }}</p>
+      <p class="mb-4 text-sm text-gray-500 cooking-time">
+        Cooking time: <span class="font-medium">{{ recipe.cookingTime }} minutes</span>
+      </p>
+
+      <div class="flex items-center mb-6 space-x-3">
+        <button
+          (click)="sendToShoppingList(recipe)"
+          class="p-2 text-white transition duration-300 bg-green-500 rounded-full hover:bg-green-700 focus:outline-none"
+          title="Add to Shopping List"
+        >
+          <i class="fa fa-shopping-cart"></i>
+        </button>
+        <div class="flex items-center space-x-2">
+          <button
+            (click)="addToMealPlan(recipe._id, 'Breakfast')"
+            class="p-2 text-white transition duration-300 bg-red-500 rounded-full hover:bg-red-700 focus:outline-none"
+            title="Add to Breakfast"
+          >
+            <i class="fa fa-sun"></i>
+          </button>
+          <button
+            (click)="addToMealPlan(recipe._id, 'Lunch')"
+            class="p-2 text-white transition duration-300 bg-orange-500 rounded-full hover:bg-orange-700 focus:outline-none"
+            title="Add to Lunch"
+          >
+            <i class="fa fa-cutlery"></i>
+          </button>
+          <button
+            (click)="addToMealPlan(recipe._id, 'Dinner')"
+            class="p-2 text-white transition duration-300 bg-indigo-500 rounded-full hover:bg-indigo-700 focus:outline-none"
+            title="Add to Dinner"
+          >
+            <i class="fa fa-moon"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <p class="mb-2 font-medium text-gray-700">Rate this Recipe</p>
+        <div class="flex items-center star-rating">
+          <i
+            *ngFor="let star of stars; let i = index"
+            class="cursor-pointer fa"
+            [ngClass]="{
+              'fa-star': true,
+              'text-yellow-500': flag && i < currentRating,
+              'text-gray-300': !(flag && i < currentRating),
+              'hover:text-yellow-400': !flag && i < hoveredRating
+            }"
+            (mouseover)="starOnHover(i)"
+            (mouseleave)="starOnLeave()"
+            (click)="starOnClick(i, recipe)"
+          >
+          </i>
+        </div>
+        <div class="mt-1 rating">
+          Rating:
+          <span *ngIf="flag === true; else hoveredRatingSpan" class="font-semibold">{{
+            currentRating
+          }}</span>
+          <ng-template #hoveredRatingSpan>
+            <span
+              *ngIf="hoveredRating !== currentRating; else currentRatingSpan"
+              class="font-semibold"
+              >{{ hoveredRating }}</span
+            >
+            <ng-template #currentRatingSpan>{{ currentRating }}</ng-template>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="relative mb-6 image-sectoin">
+        <div class="absolute z-10 top-2 right-2 heart-toggle">
+          <i
+            class="text-2xl cursor-pointer fa fa-heart"
+            [ngClass]="{
+              'text-red-500': isToggled,
+              'text-gray-300': !isToggled
+            }"
+            (click)="toggleHeart()"
+          ></i>
+        </div>
+        <div class="overflow-hidden rounded-md shadow-md image-container aspect-w-16 aspect-h-9">
+          <img
+            class="object-cover w-full h-full main-img"
+            src="{{ recipe.imageUrl }}"
+            alt="{{ recipe.title }}"
+          />
+        </div>
+      </div>
+
+      <div class="mb-8 ingredients">
+        <h2 class="mb-4 text-xl font-bold text-gray-800 uppercase">
+          <span class="text-green-500">Ingredients</span> for {{ recipe.title }}
+        </h2>
+        <ul class="text-lg text-gray-700 list-disc list-inside" *ngIf="recipe.ingredients">
+          <li class="mb-2" *ngFor="let ingredient of recipe.ingredients">
+            <span class="font-medium">{{ ingredient.name }}:</span>
+            <span class="text-green-600"> {{ ingredient.amount }} {{ ingredient.unit }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="comments">
+        <h2 class="mb-4 text-xl font-bold text-gray-800">Reviews</h2>
+        <hr class="mb-6 border-gray-200" />
+        <div>
+          <form
+            class="mb-6 comment-form"
+            [formGroup]="commentForm"
+            (ngSubmit)="addComment(recipe)"
+          >
+            <textarea
+              placeholder="Add your review..."
+              class="w-full p-3 mb-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-area"
+              formControlName="text"
+              rows="4"
+            ></textarea>
+            <button
+              class="px-5 py-2 font-semibold text-white bg-blue-500 rounded-md shadow-sm add-comment-btn hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              type="submit"
+              [disabled]="!commentForm.valid"
+            >
+              Add review
+            </button>
+          </form>
+        </div>
+        <div
+          *ngIf="recipe.comments && recipe.comments.length > 0; else noComments"
+        >
+          <div *ngFor="let comment of recipe.comments" class="mb-6 comment">
+            <div
+              *ngIf="comment.text !== ''"
+              class="flex items-center mb-1 comment-user"
+            >
+              <div class="flex items-center">
+                <i class="mr-2 text-gray-600 fa fa-user"></i>
+                <strong class="mr-2 text-gray-800">{{ comment.username }}</strong>
+              </div>
+              <p class="text-sm text-gray-500">
+                ({{ formatDate(comment.timestamp.toString()) }})
+              </p>
+            </div>
+            <p class="ml-8 leading-relaxed text-gray-700">{{ comment.text }}</p>
+          </div>
+        </div>
+
+        <ng-template #noComments>
+          <p class="text-gray-600">No comments yet. Be the first to comment!</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="px-6 py-4">
+      Loading recipe details...
+    </div>
+  </ng-template>
+</div>
+<app-footer></app-footer>

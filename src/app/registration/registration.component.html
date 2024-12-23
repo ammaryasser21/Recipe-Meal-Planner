@@ -1,0 +1,91 @@
+<div class="background">
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Enter your name" formControlName="name" />
+    <mat-error *ngIf="registrationForm.get('name')?.hasError('required')"
+      >Name is required</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Enter your email" formControlName="email" />
+    <mat-error *ngIf="registrationForm.get('email')?.invalid">
+      <span NgIf="registrationForm.get('email')?.hasError('required')"
+        >Email is required</span
+      >
+      <span NgIf="registrationForm.get('email')?.hasError('email')"
+        >Invalid email format</span
+      >
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Phone</mat-label>
+    <input
+      matInput
+      placeholder="Enter your phone number (10 digits)"
+      type="tel"
+      formControlName="phone"
+    />
+    <mat-error *ngIf="registrationForm.get('phone')?.hasError('required')"
+      >Phone number is required</mat-error
+    >
+    <mat-error *ngIf="registrationForm.get('phone')?.hasError('pattern')"
+      >Invalid phone number format (10 digits)</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+
+    <input
+      matInput
+      placeholder="Enter your password"
+      type="password"
+      formControlName="password"
+    />
+    
+    <mat-error *ngIf="registrationForm.get('password')?.hasError('required')"
+      >Password is required</mat-error
+    >
+    <mat-error *ngIf="registrationForm.get('password')?.hasError('minlength')"
+      >Password must be at least 6 characters long</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Confirm Password</mat-label>
+    <input
+      matInput
+      placeholder="Confirm your password"
+      type="password"
+      formControlName="confirmPassword"
+    />
+    <mat-error
+      *ngIf="registrationForm.get('confirmPassword')?.hasError('required')"
+      >Confirm password is required</mat-error
+    >
+    <mat-error *ngIf="registrationForm.errors?.['passwordsMismatch']"
+      >Passwords do not match</mat-error
+    >
+  </mat-form-field>
+
+  <div>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      
+    >
+      Sign Up
+    </button>
+    <button mat-button type="button" (click)="navigateToLogin()">
+      Sign In
+    </button>
+  </div>
+</form>

@@ -1,0 +1,49 @@
+<app-navbar class="sticky top-0 z-50 bg-white shadow-md"></app-navbar>
+<div class="min-h-screen py-6 bg-gray-100 sm:py-12">
+  <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div class="overflow-hidden bg-white rounded-lg shadow-md">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h2 class="text-2xl font-semibold text-gray-800">Shopping Cart</h2>
+      </div>
+      <div *ngIf="updatedShoppingList.length > 0; else emptyShoppingList" class="p-6">
+        <div class="space-y-6">
+          <div *ngFor="let recipe of updatedShoppingList" class="flex p-4 space-x-4 border border-gray-200 rounded-lg md:items-center">
+            <img src="{{ recipe.imageUrl }}" alt="{{ recipe.title }}" class="flex-shrink-0 object-cover w-20 h-20 rounded-md" />
+            <div class="flex-grow">
+              <h3 class="text-lg font-semibold text-gray-700">{{ recipe.title }}</h3>
+              <ul class="mt-1 text-sm text-gray-600 list-disc list-inside">
+                <li *ngFor="let ingredient of recipe.ingredients">
+                  {{ ingredient.name }}: <span class="font-medium">{{ ingredient.amount }}</span> g
+                </li>
+              </ul>
+            </div>
+            <div class="md:text-right">
+              <ul class="text-sm text-gray-600">
+                <li><strong class="font-medium">Cuisine:</strong> {{ recipe.cuisine }}</li>
+                <li>
+                  <strong class="font-medium">Cooking Time:</strong> {{ recipe.cookingTime }} mins
+                </li>
+              </ul>
+            </div>
+            <button (click)="deleteRecipe(recipe.id)" class="ml-4 text-red-600 hover:text-red-700 focus:outline-none">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m-15.232 0A50.7 50.7 0 0117.344 6.166m-12.998 0A50.667 50.667 0 0012.654 6.166m-3.475 0A49.732 49.732 0 015.02 3.623m18.228 0A49.832 49.832 0 0119.98 3.623m-9.966 0a49.95 49.95 0 00-3.478 0M6.53 6.166A49.86 49.86 0 019.885 3.623m13.046 0a49.929 49.929 0 01-3.475 0M8.357 9.4a2.25 2.25 0 012.252 2.25l.932 12.75h.139l.932-12.75a2.25 2.25 0 012.252-2.25m-7.354 0a2.25 2.25 0 012.25 2.25l.932 12.75h.14l.932-12.75a2.25 2.25 0 012.25-2.25m-2.944 0a2.25 2.25 0 012.25 2.25l.932 12.75h.14l.932-12.75a2.25 2.25 0 012.25-2.25" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between px-6 py-4 mt-8 rounded-b-lg bg-gray-50">
+          <h3 class="text-xl font-bold text-gray-800">Total Price:</h3>
+          <span class="text-xl font-bold text-indigo-600">${{ totalPrice }}</span>
+        </div>
+      </div>
+      <ng-template #emptyShoppingList>
+        <div class="px-6 py-8 text-center">
+          <p class="text-lg font-medium text-gray-600">Your shopping list is empty!</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
