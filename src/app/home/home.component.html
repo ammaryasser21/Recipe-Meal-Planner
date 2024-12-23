@@ -1,151 +1,169 @@
 <app-navbar class="sticky top-0 z-50 bg-white shadow-md"></app-navbar>
+<!-- Hero Section -->
 <div class="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-50">
   <div class="relative mx-auto max-w-7xl">
     <div class="relative z-10 pb-8 bg-gradient-to-b from-transparent to-gray-50 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-      <div class="relative px-4 pt-6 sm:px-6 lg:px-8">
-        <!-- Optional: Add navigation here -->
-      </div>
-
       <main class="px-4 mx-auto mt-10 max-w-7xl sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
         <div class="sm:text-center lg:text-left">
           <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-            <span class="block xl:inline">Unleash</span>
-            <span class="block text-indigo-500 xl:inline">Culinary Excellence</span>
+            <span class="block xl:inline">Discover</span>
+            <span class="block text-emerald-500 xl:inline">Amazing Recipes</span>
           </h1>
           <p class="mt-3 text-base text-gray-700 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-            Explore a world of flavors, discover handcrafted recipes, and let the aroma of our passion for cooking fill your kitchen.
+            Explore a world of culinary delights, from quick weekday meals to gourmet weekend feasts.
           </p>
           <div class="mt-10 sm:flex sm:justify-center lg:justify-start">
-            <div class="rounded-md shadow">
-              <a href="#" class="flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-500 border border-transparent rounded-md hover:bg-indigo-600 md:py-4 md:text-lg md:px-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Get Started
-              </a>
-            </div>
-            <div class="mt-3 sm:mt-0 sm:ml-3">
-              <a href="#" class="flex items-center justify-center w-full px-8 py-3 text-base font-medium text-indigo-700 bg-indigo-100 border border-transparent rounded-md hover:bg-indigo-200 md:py-4 md:text-lg md:px-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Live Demo
-              </a>
-            </div>
+            <button class="flex items-center justify-center px-8 py-3 text-base font-medium text-white bg-emerald-500 rounded-md hover:bg-emerald-600 md:py-4 md:text-lg md:px-10">
+              Start Cooking
+            </button>
           </div>
         </div>
       </main>
     </div>
     <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-      <img
-        class="object-cover w-full h-56 sm:h-72 md:h-96 lg:w-full lg:h-full"
-        src="https://recipestate.com/_next/image?url=%2Fimages%2Fherosection.jpg&w=3840&q=100"
-        alt="Culinary Excellence"
-      />
+      <img class="object-cover w-full h-56 sm:h-72 md:h-96 lg:w-full lg:h-full"
+           src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+           alt="Cooking">
     </div>
   </div>
 </div>
 
+<!-- Search Section -->
 <div class="py-16 bg-white">
   <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-    <div class="text-center md:border-b md:border-gray-100 md:pb-8">
-      <h2 class="text-base font-semibold tracking-wider text-indigo-600 uppercase">Search Your Next Meal</h2>
-      <p class="mt-2 text-3xl font-extrabold leading-8 tracking-tight text-gray-900 sm:text-4xl">
-        Find the Perfect Recipe
+    <div class="text-center">
+      <h2 class="text-base font-semibold tracking-wider text-emerald-600 uppercase">Find Recipes</h2>
+      <p class="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
+        Search Your Perfect Meal
       </p>
     </div>
-    <div class="mt-12">
-      <form [formGroup]="searchForm" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <div>
-          <label for="query" class="block text-sm font-medium text-gray-700">Search Recipe</label>
-          <div class="mt-1">
-            <input type="text" id="query" placeholder="Search Recipe..." formControlName="query" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          </div>
+    
+    <form [formGroup]="searchForm" class="mt-8 space-y-6">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div class="space-y-2">
+          <label class="text-sm font-medium text-gray-700">Recipe Name</label>
+          <input type="text" formControlName="query" 
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                 placeholder="Search recipes...">
         </div>
-        <div>
-          <label for="cuisine" class="block text-sm font-medium text-gray-700">Cuisine</label>
-          <div class="mt-1">
-            <input type="text" id="cuisine" placeholder="Cuisine" formControlName="cuisine" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          </div>
+        
+        <div class="space-y-2">
+          <label class="text-sm font-medium text-gray-700">Cuisine</label>
+          <input type="text" formControlName="cuisine"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                 placeholder="Italian, Chinese...">
         </div>
-        <div>
-          <label for="ingredients" class="block text-sm font-medium text-gray-700">Ingredients</label>
-          <div class="mt-1">
-            <input type="text" id="ingredients" placeholder="Ingredients" formControlName="ingredients" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          </div>
+        
+        <div class="space-y-2">
+          <label class="text-sm font-medium text-gray-700">Ingredients</label>
+          <input type="text" formControlName="ingredients"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                 placeholder="Main ingredients">
         </div>
-        <div>
-          <label for="cookingTime" class="block text-sm font-medium text-gray-700">Cooking Time (minutes)</label>
-          <div class="mt-1">
-            <input type="number" id="cookingTime" placeholder="Cooking Time" formControlName="cookingTime" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          </div>
+        
+        <div class="space-y-2">
+          <label class="text-sm font-medium text-gray-700">Cooking Time</label>
+          <input type="number" formControlName="cookingTime"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                 placeholder="Minutes">
         </div>
-        <div class="flex items-center space-x-4 sm:col-span-2 lg:col-span-2">
-          <div class="relative flex items-start">
-            <div class="flex items-center h-5">
-              <input id="follow" name="follow" type="checkbox" formControlName="follow" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-            </div>
-            <div class="ml-3 text-sm">
-              <label for="follow" class="font-medium text-gray-700">Followed Users</label>
-            </div>
-          </div>
-          <div class="relative flex items-start">
-            <div class="flex items-center h-5">
-              <input id="posted" name="posted" type="checkbox" formControlName="posted" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-            </div>
-            <div class="ml-3 text-sm">
-              <label for="posted" class="font-medium text-gray-700">Posted by user</label>
-            </div>
-          </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div class="flex gap-6">
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" formControlName="follow"
+                   class="w-4 h-4 text-emerald-500 border-gray-300 rounded focus:ring-emerald-500">
+            <span class="text-sm text-gray-700">Followed Users</span>
+          </label>
+          
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" formControlName="posted"
+                   class="w-4 h-4 text-emerald-500 border-gray-300 rounded focus:ring-emerald-500">
+            <span class="text-sm text-gray-700">My Recipes</span>
+          </label>
         </div>
-        <div class="flex items-center justify-start sm:col-span-2 lg:col-span-2 lg:justify-end">
-          <button type="submit" (click)="searchRecipes()" class="inline-flex items-center px-6 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            <svg class="w-5 h-5 mr-3 -ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-            </svg>
-            Search Recipes
-          </button>
-        </div>
-      </form>
-    </div>
+        
+        <button type="submit" (click)="searchRecipes()"
+                class="flex items-center px-6 py-2 text-white bg-emerald-500 rounded-lg hover:bg-emerald-600">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          Search
+        </button>
+      </div>
+    </form>
   </div>
 </div>
 
-<div class="py-16 bg-gray-50">
+<!-- Recipe Grid Section -->
+<div class="py-16">
   <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-    <div class="text-center md:border-b md:border-gray-100 md:pb-8">
-      <h2 class="text-base font-semibold tracking-wider text-indigo-600 uppercase">Discover</h2>
-      <p class="mt-2 text-3xl font-extrabold leading-8 tracking-tight text-gray-900 sm:text-4xl">
+    <div class="text-center mb-12">
+      <h2 class="text-base font-semibold tracking-wider text-emerald-600 uppercase">Discover</h2>
+      <p class="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
         Popular Recipes
       </p>
     </div>
-    <div class="grid gap-8 mt-12 sm:grid-cols-2 lg:grid-cols-4">
-      <div *ngFor="let recipe of recipes" class="transition-shadow duration-300 bg-white rounded-lg shadow-md hover:shadow-xl">
-        <div class="relative">
-          <a [routerLink]="['/details', recipe?._id]" class="block cursor-pointer">
-            <img class="object-cover w-full h-48 rounded-t-lg" src="{{ recipe.imageUrl }}" alt="" />
-          </a>
-          <div class="absolute flex space-x-2 top-2 right-2">
-            <button (click)="likeRecipe(recipe._id)" aria-label="Like recipe" class="flex items-center justify-center w-10 h-10 text-gray-500 transition-colors duration-200 bg-white rounded-full bg-opacity-80 backdrop-blur-sm hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+    
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div *ngFor="let recipe of recipes" 
+           class="group relative bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300">
+        <div class="aspect-w-16 aspect-h-9 rounded-t-xl overflow-hidden">
+          <img [src]="recipe.imageUrl || 'assets/default-recipe.jpg'" 
+               [alt]="recipe.title"
+               class="object-cover w-full h-48 group-hover:scale-105 transition-transform duration-300">
+          
+          <div class="absolute top-2 right-2 flex space-x-2">
+            <button (click)="likeRecipe(recipe._id)" 
+                    class="p-2 bg-white/90 rounded-full hover:bg-white hover:text-rose-500 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </button>
-            <button (click)="addToShoppingList(recipe)" aria-label="Add to shopping list" class="flex items-center justify-center w-10 h-10 text-gray-500 transition-colors duration-200 bg-white rounded-full bg-opacity-80 backdrop-blur-sm hover:text-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            
+            <button (click)="addToShoppingList(recipe)" 
+                    class="p-2 bg-white/90 rounded-full hover:bg-white hover:text-emerald-500 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
             </button>
-            <button (click)="saveRecipe(recipe._id)" aria-label="Save recipe" class="flex items-center justify-center w-10 h-10 text-gray-500 transition-colors duration-200 bg-white rounded-full bg-opacity-80 backdrop-blur-sm hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+            
+            <button (click)="saveRecipe(recipe._id)" 
+                    class="p-2 bg-white/90 rounded-full hover:bg-white hover:text-blue-500 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
               </svg>
             </button>
           </div>
         </div>
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-gray-800">
-            <a [routerLink]="['/details', recipe?._id]" class="transition-colors duration-200 hover:text-indigo-600">
-              {{ recipe.title }}
-            </a>
+        
+        <div class="p-4">
+          <h3 class="font-semibold text-lg text-gray-800 hover:text-emerald-600 transition-colors">
+            <a [routerLink]="['/details', recipe._id]">{{recipe.title}}</a>
           </h3>
-          <p class="mt-2 text-sm text-gray-600">
-            <!-- Add a short description or some recipe info here if available -->
-          </p>
+          
+          <div class="mt-2 flex items-center text-sm text-gray-500 space-x-4">
+            <span class="flex items-center">
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {{recipe.cookingTime}} mins
+            </span>
+            
+            <span class="flex items-center">
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              {{recipe.servings}} servings
+            </span>
+          </div>
         </div>
       </div>
     </div>

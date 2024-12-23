@@ -6,7 +6,7 @@ import { User } from '../models/user.model';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,6 +31,7 @@ import { FooterComponent } from "../footer/footer.component";
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
+    RouterModule,
     FooterComponent
 ],
 })

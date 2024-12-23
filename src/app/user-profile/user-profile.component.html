@@ -1,218 +1,324 @@
 <app-navbar class="sticky top-0 z-50 bg-white shadow-md"></app-navbar>
-<div class="flex flex-col justify-center min-h-screen py-6 bg-gray-100 sm:py-12">
-  <div class="relative py-3 sm:max-w-xl sm:mx-auto">
-    <div class="absolute inset-0 transform -skew-y-6 shadow-lg bg-gradient-to-r from-blue-300 to-purple-300 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-    <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
-      <div class="max-w-md mx-auto">
-        <div class="flex items-center space-x-5">
-          <div class="flex items-center justify-center w-12 h-12 bg-indigo-500 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+<!-- Profile Header -->
+<div class="bg-white shadow">
+  <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center space-x-6">
+      <div class="h-20 w-20 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 flex items-center justify-center text-white text-2xl font-bold">
+        {{ currentUser?.name?.charAt(0)?.toUpperCase() ?? '' }}
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">{{ currentUser?.name }}</h1>
+        <p class="text-sm text-gray-500">{{ currentUser?.email }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats Overview -->
+<div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+  <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
             </svg>
           </div>
-          <div class="self-start block pl-2 text-xl font-semibold text-gray-700">
-            <h2 *ngIf="currentUser" class="leading-relaxed">{{ currentUser.name }}</h2>
-            <p *ngIf="currentUser" class="text-sm font-normal leading-relaxed text-gray-500">{{ currentUser.email }}</p>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Posted Recipes</dt>
+              <dd class="flex items-baseline">
+                <div class="text-2xl font-semibold text-gray-900">{{ postedRecipes.length }}</div>
+              </dd>
+            </dl>
           </div>
         </div>
-        <div *ngIf="currentUser" class="mt-6">
-          <p class="text-gray-600">User ID: <span class="font-medium">{{ currentUser.id }}</span></p>
+      </div>
+    </div>
+
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </div>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Favorite Recipes</dt>
+              <dd class="flex items-baseline">
+                <div class="text-2xl font-semibold text-gray-900">{{ favoriteRecipes.length }}</div>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+            </svg>
+          </div>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Saved Recipes</dt>
+              <dd class="flex items-baseline">
+                <div class="text-2xl font-semibold text-gray-900">{{ savedRecipes.length }}</div>
+              </dd>
+            </dl>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="relative py-3 mt-8 sm:max-w-5xl sm:mx-auto">
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      <div class="relative px-4 py-8 bg-white shadow-lg sm:rounded-3xl">
-        <h3 class="mb-4 text-lg font-semibold text-gray-700">Posted Recipes</h3>
-        <div class="mt-2">
-          <div *ngIf="postedRecipes.length === 0" class="text-gray-500">No Recipes Added Yet</div>
-          <div *ngIf="postedRecipes.length > 0" class="space-y-4">
-            <div *ngFor="let recipe of postedRecipes" class="flex items-center justify-between p-2 transition-colors duration-200 rounded-md hover:bg-gray-50">
-              <div (click)="navigateToDetails(recipe._id)" class="flex items-center space-x-3 cursor-pointer">
-                <img
-                  [src]="recipe.imageUrl"
-                  alt="{{ recipe.title }}"
-                  class="object-cover w-16 h-16 rounded-md"
-                />
+<!-- Recipe Lists -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+    <!-- Posted Recipes -->
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <div class="p-6">
+        <h2 class="text-lg font-medium text-gray-900">Posted Recipes</h2>
+        <div class="mt-6 flow-root">
+          <ul role="list" class="-my-5 divide-y divide-gray-200">
+            <li *ngFor="let recipe of postedRecipes" class="py-4">
+              <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0">
+                  <img [src]="recipe.imageUrl" [alt]="recipe.title" class="h-12 w-12 rounded-lg object-cover">
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-gray-900 truncate">{{ recipe.title }}</p>
+                </div>
+                <div class="flex-shrink-0 flex space-x-2">
+                  <button (click)="editRecipe(recipe)" class="p-1 rounded-full text-emerald-600 hover:bg-emerald-50">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                  </button>
+                  <button (click)="deleteRecipe(recipe._id)" class="p-1 rounded-full text-red-600 hover:bg-red-50">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Favorite Recipes -->
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <div class="p-6">
+        <h2 class="text-lg font-medium text-gray-900">Favorite Recipes</h2>
+        <div class="mt-6 flow-root">
+          <ul role="list" class="-my-5 divide-y divide-gray-200">
+            <li *ngFor="let recipe of favoriteRecipes" class="py-4">
+              <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0">
+                  <img [src]="recipe.imageUrl" [alt]="recipe.title" class="h-12 w-12 rounded-lg object-cover">
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-gray-900 truncate">{{ recipe.title }}</p>
+                </div>
                 <div>
-                  <p class="font-medium text-gray-800">{{ recipe.title }}</p>
+                  <a [routerLink]="['/details', recipe._id]"  class="text-emerald-600 hover:text-emerald-900">
+                    View
+                  </a>
                 </div>
               </div>
-              <div class="flex space-x-2">
-                <button (click)="editRecipe(recipe)" class="p-2 text-blue-500 bg-blue-100 rounded-full hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.687a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v5h-2l1.4-3.5m-5.5-9.5h.01m0 0l-3-3L12 11.5l3-3z" />
-                  </svg>
-                </button>
-                <button (click)="deleteRecipe(recipe._id)" class="p-2 text-red-500 bg-red-100 rounded-full hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.02-.179m-1.02.179l3.476 6.58A2.25 2.25 0 0016.5 12h.008v.009h-.008a2.25 2.25 0 00-1.977-2.01l-3.476-6.58z" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </div>
+    </div>
 
-      <div class="relative px-4 py-8 bg-white shadow-lg sm:rounded-3xl">
-        <h3 class="mb-4 text-lg font-semibold text-gray-700">Favorite Recipes</h3>
-        <div class="mt-2">
-          <div *ngIf="favoriteRecipes.length === 0" class="text-gray-500">No Favorite Recipes</div>
-          <div *ngIf="favoriteRecipes.length > 0" class="space-y-4">
-            <div *ngFor="let recipe of favoriteRecipes" (click)="navigateToDetails(recipe._id)" class="flex items-center p-2 space-x-3 transition-colors duration-200 rounded-md cursor-pointer hover:bg-gray-50">
-              <img
-                [src]="recipe.imageUrl"
-                alt="{{ recipe.title }}"
-                class="object-cover w-16 h-16 rounded-md"
-              />
-              <div>
-                <p class="font-medium text-gray-800">{{ recipe.title }}</p>
+    <!-- Saved Recipes -->
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <div class="p-6">
+        <h2 class="text-lg font-medium text-gray-900">Saved Recipes</h2>
+        <div class="mt-6 flow-root">
+          <ul role="list" class="-my-5 divide-y divide-gray-200">
+            <li *ngFor="let recipe of savedRecipes" class="py-4">
+              <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0">
+                  <img [src]="recipe.imageUrl" [alt]="recipe.title" class="h-12 w-12 rounded-lg object-cover">
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-gray-900 truncate">{{ recipe.title }}</p>
+                </div>
+                <div>
+                  <a [routerLink]="['/details', recipe._id]"  class="text-emerald-600 hover:text-emerald-900">
+                    View
+                  </a>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="relative px-4 py-8 bg-white shadow-lg sm:rounded-3xl">
-        <h3 class="mb-4 text-lg font-semibold text-gray-700">Saved Recipes</h3>
-        <div class="mt-2">
-          <div *ngIf="savedRecipes.length === 0" class="text-gray-500">No Saved Recipes</div>
-          <div *ngIf="savedRecipes.length > 0" class="space-y-4">
-            <div *ngFor="let recipe of savedRecipes" (click)="navigateToDetails(recipe._id)" class="flex items-center p-2 space-x-3 transition-colors duration-200 rounded-md cursor-pointer hover:bg-gray-50">
-              <img
-                [src]="recipe.imageUrl"
-                alt="{{ recipe.title }}"
-                class="object-cover w-16 h-16 rounded-md"
-              />
-              <div>
-                <p class="font-medium text-gray-800">{{ recipe.title }}</p>
-              </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="relative py-3 mt-8 sm:max-w-3xl sm:mx-auto">
-    <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-10">
-      <div class="max-w-md mx-auto">
-        <h3 class="mb-6 text-lg font-semibold text-gray-700">{{editMode ? 'Edit Recipe': 'Add New Recipe'}}</h3>
-        <form #recipeForm="ngForm" (ngSubmit)="onSubmit(recipeForm)" class="space-y-4">
+<!-- Recipe Form -->
+<div class="max-w-2xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+  <div class="bg-white shadow rounded-lg overflow-hidden">
+    <div class="p-6">
+      <h2 class="text-lg font-medium text-gray-900 mb-6">{{editMode ? 'Edit Recipe' : 'Add New Recipe'}}</h2>
+      <form #recipeForm="ngForm" (ngSubmit)="onSubmit(recipeForm)" class="space-y-6">
+        <!-- Title -->
+        <div>
+          <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+          <input type="text" 
+                 id="title" 
+                 name="title" 
+                 [(ngModel)]="newRecipe.title" 
+                 required 
+                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+        </div>
+      
+        <!-- Description -->
+        <div>
+          <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea id="description" 
+                    name="description" 
+                    rows="3" 
+                    [(ngModel)]="newRecipe.description" 
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm"></textarea>
+        </div>
+      
+        <!-- Image URL -->
+        <div>
+          <label for="imageUrl" class="block text-sm font-medium text-gray-700">Image URL</label>
+          <input type="url" 
+                 id="imageUrl" 
+                 name="imageUrl" 
+                 [(ngModel)]="newRecipe.imageUrl" 
+                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+        </div>
+      
+        <!-- Two Column Layout -->
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <!-- Cooking Time -->
           <div>
-            <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-            <div class="mt-1">
-              <input type="text" name="title" id="title" [(ngModel)]="newRecipe.title" required class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-              <div *ngIf="recipeForm.controls['title']?.invalid && recipeForm.controls['title']?.touched" class="mt-1 text-sm text-red-500">Title is required</div>
-            </div>
+            <label for="cookingTime" class="block text-sm font-medium text-gray-700">Cooking Time (mins)</label>
+            <input type="number" 
+                   id="cookingTime" 
+                   name="cookingTime" 
+                   [(ngModel)]="newRecipe.cookingTime" 
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
           </div>
-
+      
+          <!-- Servings -->
           <div>
-            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-            <div class="mt-1">
-              <textarea name="description" id="description" [(ngModel)]="newRecipe.description" rows="3" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
-            </div>
+            <label for="servings" class="block text-sm font-medium text-gray-700">Servings</label>
+            <input type="number" 
+                   id="servings" 
+                   name="servings" 
+                   [(ngModel)]="newRecipe.servings" 
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
           </div>
-
+      
+          <!-- Calories -->
           <div>
-            <label for="imageUrl" class="block text-sm font-medium text-gray-700">Image URL</label>
-            <div class="mt-1">
-              <input type="url" name="imageUrl" id="imageUrl" [(ngModel)]="newRecipe.imageUrl" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            </div>
+            <label for="calories" class="block text-sm font-medium text-gray-700">Calories</label>
+            <input type="number" 
+                   id="calories" 
+                   name="calories" 
+                   [(ngModel)]="newRecipe.calories" 
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
           </div>
-
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label for="cookingTime" class="block text-sm font-medium text-gray-700">Cooking Time (minutes)</label>
-              <div class="mt-1">
-                <input type="number" name="cookingTime" id="cookingTime" [(ngModel)]="newRecipe.cookingTime" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-              </div>
-            </div>
-            <div>
-              <label for="servings" class="block text-sm font-medium text-gray-700">Servings</label>
-              <div class="mt-1">
-                <input type="number" name="servings" id="servings" [(ngModel)]="newRecipe.servings" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-              </div>
-            </div>
-            <div>
-              <label for="calories" class="block text-sm font-medium text-gray-700">Calories</label>
-              <div class="mt-1">
-                <input type="number" name="calories" id="calories" [(ngModel)]="newRecipe.calories" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-              </div>
-            </div>
-            <div>
-              <label for="difficulty" class="block text-sm font-medium text-gray-700">Difficulty</label>
-              <div class="mt-1">
-                <select id="difficulty" name="difficulty" [(ngModel)]="newRecipe.difficulty" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  <option value="easy">Easy</option>
-                  <option value="medium">Medium</option>
-                  <option value="hard">Hard</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
+      
+          <!-- Difficulty -->
           <div>
-            <label for="cuisine" class="block text-sm font-medium text-gray-700">Cuisine</label>
-            <div class="mt-1">
-              <input type="text" name="cuisine" id="cuisine" [(ngModel)]="newRecipe.cuisine" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            </div>
+            <label for="difficulty" class="block text-sm font-medium text-gray-700">Difficulty</label>
+            <select id="difficulty" 
+                    name="difficulty" 
+                    [(ngModel)]="newRecipe.difficulty" 
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
           </div>
-
-          <div>
-            <label for="instructions" class="block text-sm font-medium text-gray-700">Instructions</label>
-            <div class="mt-1">
-              <textarea name="instructions" id="instructions" [(ngModel)]="newRecipe.instructions" rows="5" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
-            </div>
-          </div>
-
-          <div>
-            <h4 class="mb-2 font-semibold text-gray-700 text-md">Ingredients</h4>
-            <div class="space-y-3">
-              <div *ngFor="let ingredient of newRecipe.ingredients; let i = index" class="flex space-x-3">
-                <div class="flex-1">
-                  <label [for]="'ingredientName' + i" class="block text-sm font-medium text-gray-700">Name</label>
-                  <div class="mt-1">
-                    <input type="text" [name]="'ingredientName' + i" [id]="'ingredientName' + i" [(ngModel)]="ingredient.name" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  </div>
-                </div>
-                <div class="flex-1">
-                  <label [for]="'ingredientAmount' + i" class="block text-sm font-medium text-gray-700">Amount</label>
-                  <div class="mt-1">
-                    <input type="number" [name]="'ingredientAmount' + i" [id]="'ingredientAmount' + i" [(ngModel)]="ingredient.amount" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  </div>
-                </div>
-                <div class="flex-1">
-                  <label [for]="'ingredientUnit' + i" class="block text-sm font-medium text-gray-700">Unit</label>
-                  <div class="mt-1">
-                    <input type="text" [name]="'ingredientUnit' + i" [id]="'ingredientUnit' + i" [(ngModel)]="ingredient.unit" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  </div>
-                </div>
-                <button type="button" (click)="removeIngredient(i)" class="self-end p-2 text-red-500 bg-red-100 rounded-md hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <button type="button" (click)="addIngredient()" class="px-4 py-2 mt-2 text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">
+        </div>
+      
+        <!-- Ingredients Section -->
+        <div>
+          <div class="flex justify-between items-center mb-4">
+            <label class="block text-sm font-medium text-gray-700">Ingredients</label>
+            <button type="button" 
+                    (click)="addIngredient()" 
+                    class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
               Add Ingredient
             </button>
           </div>
-
-          <div class="flex justify-end">
-            <button type="submit" [disabled]="recipeForm.invalid" class="px-6 py-3 ml-3 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              {{editMode ? 'Update Recipe': 'Add Recipe'}}
-            </button>
+          
+          <div class="space-y-4">
+            <div *ngFor="let ingredient of newRecipe.ingredients; let i = index" 
+                 class="flex items-center space-x-4 bg-gray-50 p-4 rounded-lg">
+              <div class="flex-1">
+                <input type="text" 
+                       [name]="'ingredientName' + i" 
+                       [(ngModel)]="ingredient.name" 
+                       placeholder="Name" 
+                       class="block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+              </div>
+              <div class="flex-1">
+                <input type="number" 
+                       [name]="'ingredientAmount' + i" 
+                       [(ngModel)]="ingredient.amount" 
+                       placeholder="Amount" 
+                       class="block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+              </div>
+              <div class="flex-1">
+                <input type="text" 
+                       [name]="'ingredientUnit' + i" 
+                       [(ngModel)]="ingredient.unit" 
+                       placeholder="Unit" 
+                       class="block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+              </div>
+              <button type="button" 
+                      (click)="removeIngredient(i)" 
+                      class="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           </div>
-        </form>
-        <div *ngIf="errorMessage" class="mt-4 text-red-500">
-          {{ errorMessage }}
         </div>
-      </div>
+      
+        <!-- Instructions -->
+        <div>
+          <label for="instructions" class="block text-sm font-medium text-gray-700">Instructions</label>
+          <textarea id="instructions" 
+                    name="instructions" 
+                    rows="4" 
+                    [(ngModel)]="newRecipe.instructions" 
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm"
+                    placeholder="Enter cooking instructions..."></textarea>
+        </div>
+      
+        <!-- Submit Button -->
+        <div class="flex justify-end">
+          <button type="submit" 
+                  [disabled]="recipeForm.invalid" 
+                  class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed">
+            {{editMode ? 'Update Recipe' : 'Add Recipe'}}
+          </button>
+        </div>
+      </form>
+      
     </div>
   </div>
 </div>

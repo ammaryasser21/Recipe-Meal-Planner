@@ -28,6 +28,7 @@ import { FooterComponent } from "../footer/footer.component";
 ],
 })
 export class MealPlanningComponent implements OnInit {
+
   mealPlan: MealPlan | null = null;
   timeSlot: string[] = ['Breakfast', 'Lunch', 'Dinner'];
   recipes: Recipe[] = [];
@@ -44,7 +45,9 @@ export class MealPlanningComponent implements OnInit {
     this.currentUser = this.authService.getCurrentUser();
     this.loadMealPlan();
   }
-
+  getRecipesByTimeSlot(timeSlot: string): Recipe[] {
+    return this.recipes.filter(recipe => recipe.timeSlot === timeSlot);
+  }
   loadMealPlan() {
      const userId = this.authService.getUserId() ?? 'user_1';
    const storedMealPlan = localStorage.getItem(`mealPlan_${userId}`);

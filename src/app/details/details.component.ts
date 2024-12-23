@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location, CommonModule } from '@angular/common';
 import { RecipeService } from '../shared/recipe.service';
@@ -28,6 +28,15 @@ export class DetailsComponent implements OnInit, OnDestroy {
   isFollowing = false;
 followedUsers: { [userId: string]: string[] } = {};
   currentUser: User | null = null;
+  // Add these properties to the class
+timeSlots = [
+  { label: 'Breakfast', value: 'Breakfast' },
+  { label: 'Lunch', value: 'Lunch' },
+  { label: 'Dinner', value: 'Dinner' },
+];
+showMealPlanDropdown = false;
+
+// Add this method to the class
   private userSubscription: Subscription = new Subscription();
 
   constructor(
@@ -72,6 +81,18 @@ followedUsers: { [userId: string]: string[] } = {};
     this.createCommentForm();
   }
 
+  toggleMealPlanDropdown(): void {
+    this.showMealPlanDropdown = !this.showMealPlanDropdown;
+  }
+  
+  // Add click outside directive to close dropdown when clicking outside
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.meal-plan-dropdown')) {
+      this.showMealPlanDropdown = false;
+    }
+  }
   createCommentForm() {
     this.commentForm = this.fb.group({
       text: ['', [Validators.required]],

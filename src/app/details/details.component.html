@@ -1,181 +1,197 @@
 <app-navbar class="sticky top-0 z-50 bg-white shadow-md"></app-navbar>
-<div class="container px-4 py-8 mx-auto">
-  <div class="overflow-hidden bg-white rounded-lg shadow-md details-container">
-    <div class="px-6 py-4 details" *ngIf="recipe$ | async as recipe; else loading">
-      <div class="flex items-start justify-between mb-6">
-        <h1 class="text-3xl font-bold text-gray-900 title">
-          {{ recipe.title }}
-        </h1>
-        <button
-          (click)="toggleFollow(recipe)"
-          class="flex items-center text-gray-600 transition duration-300 hover:text-gray-800 focus:outline-none"
-        >
-          <i
-            class="mr-1 fa"
-            [ngClass]="isFollowing ? 'fa-user-minus' : 'fa-user-plus'"
-          ></i>
-          <p class="text-sm">{{ isFollowing ? "Unfollow" : "Follow" }}</p>
-        </button>
-      </div>
-      <p class="mb-6 leading-relaxed text-gray-700 description">{{ recipe.description }}</p>
-      <p class="mb-4 text-sm text-gray-500 cooking-time">
-        Cooking time: <span class="font-medium">{{ recipe.cookingTime }} minutes</span>
-      </p>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <ng-container *ngIf="recipe$ | async as recipe">
+    <!-- Back Button -->
+    <button (click)="goBack()" class="mb-6 flex items-center text-gray-600 hover:text-gray-800">
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+      </svg>
+      Back
+    </button>
 
-      <div class="flex items-center mb-6 space-x-3">
-        <button
-          (click)="sendToShoppingList(recipe)"
-          class="p-2 text-white transition duration-300 bg-green-500 rounded-full hover:bg-green-700 focus:outline-none"
-          title="Add to Shopping List"
-        >
-          <i class="fa fa-shopping-cart"></i>
-        </button>
-        <div class="flex items-center space-x-2">
-          <button
-            (click)="addToMealPlan(recipe._id, 'Breakfast')"
-            class="p-2 text-white transition duration-300 bg-red-500 rounded-full hover:bg-red-700 focus:outline-none"
-            title="Add to Breakfast"
-          >
-            <i class="fa fa-sun"></i>
-          </button>
-          <button
-            (click)="addToMealPlan(recipe._id, 'Lunch')"
-            class="p-2 text-white transition duration-300 bg-orange-500 rounded-full hover:bg-orange-700 focus:outline-none"
-            title="Add to Lunch"
-          >
-            <i class="fa fa-cutlery"></i>
-          </button>
-          <button
-            (click)="addToMealPlan(recipe._id, 'Dinner')"
-            class="p-2 text-white transition duration-300 bg-indigo-500 rounded-full hover:bg-indigo-700 focus:outline-none"
-            title="Add to Dinner"
-          >
-            <i class="fa fa-moon"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="mb-6">
-        <p class="mb-2 font-medium text-gray-700">Rate this Recipe</p>
-        <div class="flex items-center star-rating">
-          <i
-            *ngFor="let star of stars; let i = index"
-            class="cursor-pointer fa"
-            [ngClass]="{
-              'fa-star': true,
-              'text-yellow-500': flag && i < currentRating,
-              'text-gray-300': !(flag && i < currentRating),
-              'hover:text-yellow-400': !flag && i < hoveredRating
-            }"
-            (mouseover)="starOnHover(i)"
-            (mouseleave)="starOnLeave()"
-            (click)="starOnClick(i, recipe)"
-          >
-          </i>
-        </div>
-        <div class="mt-1 rating">
-          Rating:
-          <span *ngIf="flag === true; else hoveredRatingSpan" class="font-semibold">{{
-            currentRating
-          }}</span>
-          <ng-template #hoveredRatingSpan>
-            <span
-              *ngIf="hoveredRating !== currentRating; else currentRatingSpan"
-              class="font-semibold"
-              >{{ hoveredRating }}</span
-            >
-            <ng-template #currentRatingSpan>{{ currentRating }}</ng-template>
-          </ng-template>
-        </div>
-      </div>
-
-      <div class="relative mb-6 image-sectoin">
-        <div class="absolute z-10 top-2 right-2 heart-toggle">
-          <i
-            class="text-2xl cursor-pointer fa fa-heart"
-            [ngClass]="{
-              'text-red-500': isToggled,
-              'text-gray-300': !isToggled
-            }"
-            (click)="toggleHeart()"
-          ></i>
-        </div>
-        <div class="overflow-hidden rounded-md shadow-md image-container aspect-w-16 aspect-h-9">
-          <img
-            class="object-cover w-full h-full main-img"
-            src="{{ recipe.imageUrl }}"
-            alt="{{ recipe.title }}"
-          />
-        </div>
-      </div>
-
-      <div class="mb-8 ingredients">
-        <h2 class="mb-4 text-xl font-bold text-gray-800 uppercase">
-          <span class="text-green-500">Ingredients</span> for {{ recipe.title }}
-        </h2>
-        <ul class="text-lg text-gray-700 list-disc list-inside" *ngIf="recipe.ingredients">
-          <li class="mb-2" *ngFor="let ingredient of recipe.ingredients">
-            <span class="font-medium">{{ ingredient.name }}:</span>
-            <span class="text-green-600"> {{ ingredient.amount }} {{ ingredient.unit }}</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="comments">
-        <h2 class="mb-4 text-xl font-bold text-gray-800">Reviews</h2>
-        <hr class="mb-6 border-gray-200" />
-        <div>
-          <form
-            class="mb-6 comment-form"
-            [formGroup]="commentForm"
-            (ngSubmit)="addComment(recipe)"
-          >
-            <textarea
-              placeholder="Add your review..."
-              class="w-full p-3 mb-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-area"
-              formControlName="text"
-              rows="4"
-            ></textarea>
-            <button
-              class="px-5 py-2 font-semibold text-white bg-blue-500 rounded-md shadow-sm add-comment-btn hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              type="submit"
-              [disabled]="!commentForm.valid"
-            >
-              Add review
-            </button>
-          </form>
-        </div>
-        <div
-          *ngIf="recipe.comments && recipe.comments.length > 0; else noComments"
-        >
-          <div *ngFor="let comment of recipe.comments" class="mb-6 comment">
-            <div
-              *ngIf="comment.text !== ''"
-              class="flex items-center mb-1 comment-user"
-            >
-              <div class="flex items-center">
-                <i class="mr-2 text-gray-600 fa fa-user"></i>
-                <strong class="mr-2 text-gray-800">{{ comment.username }}</strong>
+    <!-- Recipe Header -->
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+      <div class="relative h-96">
+        <img [src]="recipe.imageUrl || 'assets/default-recipe.jpg'" 
+             [alt]="recipe.title"
+             class="w-full h-full object-cover">
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+          <div class="flex justify-between items-end">
+            <div>
+              <h1 class="text-4xl font-bold text-white mb-2">{{recipe.title}}</h1>
+              <div class="flex items-center space-x-4 text-white">
+                <span class="flex items-center">
+                  <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  {{recipe.cookingTime}} mins
+                </span>
+                <span class="flex items-center">
+                  <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                  </svg>
+                  {{recipe.servings}} servings
+                </span>
+                <span class="flex items-center">
+                  <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
+                  </svg>
+                  {{recipe.difficulty}}
+                </span>
               </div>
-              <p class="text-sm text-gray-500">
-                ({{ formatDate(comment.timestamp.toString()) }})
-              </p>
             </div>
-            <p class="ml-8 leading-relaxed text-gray-700">{{ comment.text }}</p>
+            <div class="flex space-x-3">
+              <button (click)="toggleHeart()" 
+                      class="p-2 rounded-full bg-white/20 hover:bg-white/30 transition">
+                <svg [class.text-red-500]="isToggled" 
+                     [class.text-white]="!isToggled" 
+                     class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </button>
+              
+              <!-- Add to Meal Plan Dropdown -->
+              <div class="relative meal-plan-dropdown">
+                <button (click)="toggleMealPlanDropdown()" 
+                        class="p-2 rounded-full bg-white/20 hover:bg-white/30 transition">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                </button>
+                
+                <!-- Dropdown Menu -->
+                <div *ngIf="showMealPlanDropdown" 
+                     class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
+                  <div class="py-1">
+                    <button *ngFor="let slot of timeSlots" 
+                            (click)="addToMealPlan(recipe._id, slot.value)"
+                            class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center">
+                      <span class="mr-2">{{slot.label}}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <button (click)="sendToShoppingList(recipe)" 
+                      class="p-2 rounded-full bg-white/20 hover:bg-white/30 transition">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recipe Content -->
+      <div class="p-6">
+        <!-- Macros and Nutrition -->
+        <div class="grid grid-cols-4 gap-4 mb-8">
+          <div class="bg-gray-50 p-4 rounded-lg text-center">
+            <p class="text-gray-500 text-sm">Calories</p>
+            <p class="text-2xl font-bold text-gray-900">{{recipe.calories}}</p>
+          </div>
+          <div class="bg-gray-50 p-4 rounded-lg text-center" *ngFor="let macro of recipe.macros">
+            <p class="text-gray-500 text-sm">Carbs</p>
+            <p class="text-2xl font-bold text-gray-900">{{macro.carb}}g</p>
+          </div>
+          <div class="bg-gray-50 p-4 rounded-lg text-center" *ngFor="let macro of recipe.macros">
+            <p class="text-gray-500 text-sm">Protein</p>
+            <p class="text-2xl font-bold text-gray-900">{{macro.protien}}g</p>
+          </div>
+          <div class="bg-gray-50 p-4 rounded-lg text-center" *ngFor="let macro of recipe.macros">
+            <p class="text-gray-500 text-sm">Fats</p>
+            <p class="text-2xl font-bold text-gray-900">{{macro.fats}}g</p>
           </div>
         </div>
 
-        <ng-template #noComments>
-          <p class="text-gray-600">No comments yet. Be the first to comment!</p>
-        </ng-template>
+        <!-- Description -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold mb-4">Description</h2>
+          <p class="text-gray-600">{{recipe.description}}</p>
+        </div>
+
+        <!-- Ingredients -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold mb-4">Ingredients</h2>
+          <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <li *ngFor="let ingredient of recipe.ingredients" 
+                class="flex items-center space-x-3 bg-gray-50 p-3 rounded-lg">
+              <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+              <span class="flex-1">{{ingredient.name}}</span>
+              <span class="font-medium">{{ingredient.amount}} {{ingredient.unit}}</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Instructions -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold mb-4">Instructions</h2>
+          <ol class="space-y-4">
+            <li *ngFor="let instruction of recipe.instructions; let i = index" 
+                class="flex space-x-4">
+              <span class="flex-shrink-0 w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold">
+                {{i + 1}}
+              </span>
+              <p class="flex-1 pt-1">{{instruction}}</p>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Rating -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold mb-4">Rating</h2>
+          <div class="flex items-center space-x-2">
+            <div class="flex">
+              <button *ngFor="let star of stars; let i = index"
+                      (mouseover)="starOnHover(i)"
+                      (mouseleave)="starOnLeave()"
+                      (click)="starOnClick(i, recipe)"
+                      class="focus:outline-none">
+                <svg [class.text-yellow-400]="hoveredRating > i || (currentRating > i && flag)"
+                     [class.text-gray-300]="!(hoveredRating > i || (currentRating > i && flag))"
+                     class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+              </button>
+            </div>
+            <span class="text-gray-600">{{recipe.rating ? recipe.rating.toFixed(1) : '0'}} / 5</span>
+          </div>
+        </div>
+
+        <!-- Comments -->
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Comments</h2>
+          <!-- Add Comment Form -->
+          <form [formGroup]="commentForm" (ngSubmit)="addComment(recipe)" class="mb-6">
+            <div class="flex space-x-4">
+              <input type="text" 
+                     formControlName="text"
+                     placeholder="Add a comment..."
+                     class="flex-1 rounded-lg border-gray-300 focus:border-emerald-500 focus:ring focus:ring-emerald-200">
+              <button type="submit"
+                      [disabled]="!commentForm.valid"
+                      class="px-6 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:opacity-50">
+                Post
+              </button>
+            </div>
+          </form>
+
+          <!-- Comments List -->
+          <div class="space-y-4">
+            <div *ngFor="let comment of recipe.comments" class="bg-gray-50 p-4 rounded-lg">
+              <div class="flex justify-between items-start mb-2">
+                <div>
+                  <h4 class="font-medium">{{comment.username}}</h4>
+                  <p class="text-sm text-gray-500">{{formatDate(comment.timestamp.toString())}}</p>
+                </div>
+              </div>
+              <p class="text-gray-600">{{comment.text}}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <ng-template #loading>
-    <div class="px-6 py-4">
-      Loading recipe details...
-    </div>
-  </ng-template>
+  </ng-container>
 </div>
 <app-footer></app-footer>
