@@ -13,7 +13,7 @@
             Explore a world of culinary delights, from quick weekday meals to gourmet weekend feasts.
           </p>
           <div class="mt-10 sm:flex sm:justify-center lg:justify-start">
-            <button class="flex items-center justify-center px-8 py-3 text-base font-medium text-white bg-emerald-500 rounded-md hover:bg-emerald-600 md:py-4 md:text-lg md:px-10">
+            <button class="flex items-center justify-center px-8 py-3 text-base font-medium text-white rounded-md bg-emerald-500 hover:bg-emerald-600 md:py-4 md:text-lg md:px-10">
               Start Cooking
             </button>
           </div>
@@ -32,7 +32,7 @@
 <div class="py-16 bg-white">
   <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
     <div class="text-center">
-      <h2 class="text-base font-semibold tracking-wider text-emerald-600 uppercase">Find Recipes</h2>
+      <h2 class="text-base font-semibold tracking-wider uppercase text-emerald-600">Find Recipes</h2>
       <p class="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
         Search Your Perfect Meal
       </p>
@@ -73,19 +73,19 @@
         <div class="flex gap-6">
           <label class="flex items-center space-x-2">
             <input type="checkbox" formControlName="follow"
-                   class="w-4 h-4 text-emerald-500 border-gray-300 rounded focus:ring-emerald-500">
+                   class="w-4 h-4 border-gray-300 rounded text-emerald-500 focus:ring-emerald-500">
             <span class="text-sm text-gray-700">Followed Users</span>
           </label>
           
           <label class="flex items-center space-x-2">
             <input type="checkbox" formControlName="posted"
-                   class="w-4 h-4 text-emerald-500 border-gray-300 rounded focus:ring-emerald-500">
+                   class="w-4 h-4 border-gray-300 rounded text-emerald-500 focus:ring-emerald-500">
             <span class="text-sm text-gray-700">My Recipes</span>
           </label>
         </div>
         
         <button type="submit" (click)="searchRecipes()"
-                class="flex items-center px-6 py-2 text-white bg-emerald-500 rounded-lg hover:bg-emerald-600">
+                class="flex items-center px-6 py-2 text-white rounded-lg bg-emerald-500 hover:bg-emerald-600">
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -100,8 +100,8 @@
 <!-- Recipe Grid Section -->
 <div class="py-16">
   <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-    <div class="text-center mb-12">
-      <h2 class="text-base font-semibold tracking-wider text-emerald-600 uppercase">Discover</h2>
+    <div class="mb-12 text-center">
+      <h2 class="text-base font-semibold tracking-wider uppercase text-emerald-600">Discover</h2>
       <p class="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
         Popular Recipes
       </p>
@@ -109,15 +109,15 @@
     
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <div *ngFor="let recipe of recipes" 
-           class="group relative bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300">
-        <div class="aspect-w-16 aspect-h-9 rounded-t-xl overflow-hidden">
+           class="relative transition-all duration-300 bg-white shadow-sm group rounded-xl hover:shadow-xl">
+        <div class="overflow-hidden aspect-w-16 aspect-h-9 rounded-t-xl">
           <img [src]="recipe.imageUrl || 'assets/default-recipe.jpg'" 
                [alt]="recipe.title"
-               class="object-cover w-full h-48 group-hover:scale-105 transition-transform duration-300">
+               class="object-cover w-full h-48 transition-transform duration-300 group-hover:scale-105">
           
-          <div class="absolute top-2 right-2 flex space-x-2">
+          <div class="absolute flex space-x-2 top-2 right-2">
             <button (click)="likeRecipe(recipe._id)" 
-                    class="p-2 bg-white/90 rounded-full hover:bg-white hover:text-rose-500 transition-colors">
+                    class="p-2 transition-colors rounded-full bg-white/90 hover:bg-white hover:text-rose-500">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                       d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -125,7 +125,7 @@
             </button>
             
             <button (click)="addToShoppingList(recipe)" 
-                    class="p-2 bg-white/90 rounded-full hover:bg-white hover:text-emerald-500 transition-colors">
+                    class="p-2 transition-colors rounded-full bg-white/90 hover:bg-white hover:text-emerald-500">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                       d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -133,7 +133,7 @@
             </button>
             
             <button (click)="saveRecipe(recipe._id)" 
-                    class="p-2 bg-white/90 rounded-full hover:bg-white hover:text-blue-500 transition-colors">
+                    class="p-2 transition-colors rounded-full bg-white/90 hover:bg-white hover:text-blue-500">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                       d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
@@ -143,11 +143,11 @@
         </div>
         
         <div class="p-4">
-          <h3 class="font-semibold text-lg text-gray-800 hover:text-emerald-600 transition-colors">
+          <h3 class="text-lg font-semibold text-gray-800 transition-colors hover:text-emerald-600">
             <a [routerLink]="['/details', recipe._id]">{{recipe.title}}</a>
           </h3>
           
-          <div class="mt-2 flex items-center text-sm text-gray-500 space-x-4">
+          <div class="flex items-center mt-2 space-x-4 text-sm text-gray-500">
             <span class="flex items-center">
               <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
@@ -169,5 +169,10 @@
     </div>
   </div>
 </div>
+
+<app-featured-chefs />
+<app-cuisine-categories />
+    <app-cooking-tips />
+
 
 <app-footer></app-footer>

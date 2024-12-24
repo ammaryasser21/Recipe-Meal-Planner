@@ -18,6 +18,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { UserService } from '../shared/user.service';
 import { FooterComponent } from "../footer/footer.component";
+import { FeaturedChefsComponent } from "./featured-chefs.component";
+import { CookingTipsComponent } from "./cooking-tips.component";
+import { CuisineCategoriesComponent } from "./cuisine-categories.component";
 
 @Component({
   selector: 'app-home',
@@ -37,7 +40,10 @@ import { FooterComponent } from "../footer/footer.component";
     HttpClientModule,
     NavbarComponent,
     RouterModule,
-    FooterComponent
+    FooterComponent,
+    FeaturedChefsComponent,
+    CookingTipsComponent,
+    CuisineCategoriesComponent
 ],
 })
 export class HomeComponent implements OnInit {
