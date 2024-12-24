@@ -1,9 +1,9 @@
 <app-navbar class="sticky top-0 z-50 bg-white shadow-md"></app-navbar>
 <!-- Profile Header -->
-<div class="bg-white shadow">
-  <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+<div class="pt-32 bg-white shadow ">
+  <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
     <div class="flex items-center space-x-6">
-      <div class="h-20 w-20 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 flex items-center justify-center text-white text-2xl font-bold">
+      <div class="flex items-center justify-center w-20 h-20 text-2xl font-bold text-white rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400">
         {{ currentUser?.name?.charAt(0)?.toUpperCase() ?? '' }}
       </div>
       <div>
@@ -15,17 +15,17 @@
 </div>
 
 <!-- Stats Overview -->
-<div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+<div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
   <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-    <div class="bg-white overflow-hidden shadow rounded-lg">
+    <div class="overflow-hidden bg-white rounded-lg shadow">
       <div class="p-5">
         <div class="flex items-center">
           <div class="flex-shrink-0">
-            <svg class="h-6 w-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
             </svg>
           </div>
-          <div class="ml-5 w-0 flex-1">
+          <div class="flex-1 w-0 ml-5">
             <dl>
               <dt class="text-sm font-medium text-gray-500 truncate">Posted Recipes</dt>
               <dd class="flex items-baseline">
@@ -37,15 +37,15 @@
       </div>
     </div>
 
-    <div class="bg-white overflow-hidden shadow rounded-lg">
+    <div class="overflow-hidden bg-white rounded-lg shadow">
       <div class="p-5">
         <div class="flex items-center">
           <div class="flex-shrink-0">
-            <svg class="h-6 w-6 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
             </svg>
           </div>
-          <div class="ml-5 w-0 flex-1">
+          <div class="flex-1 w-0 ml-5">
             <dl>
               <dt class="text-sm font-medium text-gray-500 truncate">Favorite Recipes</dt>
               <dd class="flex items-baseline">
@@ -57,15 +57,15 @@
       </div>
     </div>
 
-    <div class="bg-white overflow-hidden shadow rounded-lg">
+    <div class="overflow-hidden bg-white rounded-lg shadow">
       <div class="p-5">
         <div class="flex items-center">
           <div class="flex-shrink-0">
-            <svg class="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
             </svg>
           </div>
-          <div class="ml-5 w-0 flex-1">
+          <div class="flex-1 w-0 ml-5">
             <dl>
               <dt class="text-sm font-medium text-gray-500 truncate">Saved Recipes</dt>
               <dd class="flex items-baseline">
@@ -80,30 +80,30 @@
 </div>
 
 <!-- Recipe Lists -->
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
   <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
     <!-- Posted Recipes -->
-    <div class="bg-white shadow rounded-lg overflow-hidden">
+    <div class="overflow-hidden bg-white rounded-lg shadow">
       <div class="p-6">
         <h2 class="text-lg font-medium text-gray-900">Posted Recipes</h2>
-        <div class="mt-6 flow-root">
+        <div class="flow-root mt-6">
           <ul role="list" class="-my-5 divide-y divide-gray-200">
             <li *ngFor="let recipe of postedRecipes" class="py-4">
               <div class="flex items-center space-x-4">
                 <div class="flex-shrink-0">
-                  <img [src]="recipe.imageUrl" [alt]="recipe.title" class="h-12 w-12 rounded-lg object-cover">
+                  <img [src]="recipe.imageUrl" [alt]="recipe.title" class="object-cover w-12 h-12 rounded-lg">
                 </div>
                 <div class="flex-1 min-w-0">
                   <p class="text-sm font-medium text-gray-900 truncate">{{ recipe.title }}</p>
                 </div>
-                <div class="flex-shrink-0 flex space-x-2">
+                <div class="flex flex-shrink-0 space-x-2">
                   <button (click)="editRecipe(recipe)" class="p-1 rounded-full text-emerald-600 hover:bg-emerald-50">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
                   </button>
-                  <button (click)="deleteRecipe(recipe._id)" class="p-1 rounded-full text-red-600 hover:bg-red-50">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <button (click)="deleteRecipe(recipe._id)" class="p-1 text-red-600 rounded-full hover:bg-red-50">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
                   </button>
@@ -116,15 +116,15 @@
     </div>
 
     <!-- Favorite Recipes -->
-    <div class="bg-white shadow rounded-lg overflow-hidden">
+    <div class="overflow-hidden bg-white rounded-lg shadow">
       <div class="p-6">
         <h2 class="text-lg font-medium text-gray-900">Favorite Recipes</h2>
-        <div class="mt-6 flow-root">
+        <div class="flow-root mt-6">
           <ul role="list" class="-my-5 divide-y divide-gray-200">
             <li *ngFor="let recipe of favoriteRecipes" class="py-4">
               <div class="flex items-center space-x-4">
                 <div class="flex-shrink-0">
-                  <img [src]="recipe.imageUrl" [alt]="recipe.title" class="h-12 w-12 rounded-lg object-cover">
+                  <img [src]="recipe.imageUrl" [alt]="recipe.title" class="object-cover w-12 h-12 rounded-lg">
                 </div>
                 <div class="flex-1 min-w-0">
                   <p class="text-sm font-medium text-gray-900 truncate">{{ recipe.title }}</p>
@@ -142,15 +142,15 @@
     </div>
 
     <!-- Saved Recipes -->
-    <div class="bg-white shadow rounded-lg overflow-hidden">
+    <div class="overflow-hidden bg-white rounded-lg shadow">
       <div class="p-6">
         <h2 class="text-lg font-medium text-gray-900">Saved Recipes</h2>
-        <div class="mt-6 flow-root">
+        <div class="flow-root mt-6">
           <ul role="list" class="-my-5 divide-y divide-gray-200">
             <li *ngFor="let recipe of savedRecipes" class="py-4">
               <div class="flex items-center space-x-4">
                 <div class="flex-shrink-0">
-                  <img [src]="recipe.imageUrl" [alt]="recipe.title" class="h-12 w-12 rounded-lg object-cover">
+                  <img [src]="recipe.imageUrl" [alt]="recipe.title" class="object-cover w-12 h-12 rounded-lg">
                 </div>
                 <div class="flex-1 min-w-0">
                   <p class="text-sm font-medium text-gray-900 truncate">{{ recipe.title }}</p>
@@ -170,10 +170,10 @@
 </div>
 
 <!-- Recipe Form -->
-<div class="max-w-2xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-  <div class="bg-white shadow rounded-lg overflow-hidden">
+<div class="max-w-2xl px-4 py-8 mx-auto sm:px-6 lg:px-8">
+  <div class="overflow-hidden bg-white rounded-lg shadow">
     <div class="p-6">
-      <h2 class="text-lg font-medium text-gray-900 mb-6">{{editMode ? 'Edit Recipe' : 'Add New Recipe'}}</h2>
+      <h2 class="mb-6 text-lg font-medium text-gray-900">{{editMode ? 'Edit Recipe' : 'Add New Recipe'}}</h2>
       <form #recipeForm="ngForm" (ngSubmit)="onSubmit(recipeForm)" class="space-y-6">
         <!-- Title -->
         <div>
@@ -183,7 +183,7 @@
                  name="title" 
                  [(ngModel)]="newRecipe.title" 
                  required 
-                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+                 class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
         </div>
       
         <!-- Description -->
@@ -193,7 +193,7 @@
                     name="description" 
                     rows="3" 
                     [(ngModel)]="newRecipe.description" 
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm"></textarea>
+                    class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm"></textarea>
         </div>
       
         <!-- Image URL -->
@@ -203,7 +203,7 @@
                  id="imageUrl" 
                  name="imageUrl" 
                  [(ngModel)]="newRecipe.imageUrl" 
-                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+                 class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
         </div>
       
         <!-- Two Column Layout -->
@@ -215,7 +215,7 @@
                    id="cookingTime" 
                    name="cookingTime" 
                    [(ngModel)]="newRecipe.cookingTime" 
-                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+                   class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
           </div>
       
           <!-- Servings -->
@@ -225,7 +225,7 @@
                    id="servings" 
                    name="servings" 
                    [(ngModel)]="newRecipe.servings" 
-                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+                   class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
           </div>
       
           <!-- Calories -->
@@ -235,7 +235,7 @@
                    id="calories" 
                    name="calories" 
                    [(ngModel)]="newRecipe.calories" 
-                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+                   class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
           </div>
       
           <!-- Difficulty -->
@@ -244,7 +244,7 @@
             <select id="difficulty" 
                     name="difficulty" 
                     [(ngModel)]="newRecipe.difficulty" 
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+                    class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
               <option value="Easy">Easy</option>
               <option value="Medium">Medium</option>
               <option value="Hard">Hard</option>
@@ -254,8 +254,8 @@
       
         <!-- Ingredients Section -->
         <div>
-          <div class="flex justify-between items-center mb-4">
-            <label class="block text-sm font-medium text-gray-700">Ingredients</label>
+          <div class="flex items-center justify-between mb-4">
+            <label for="ingredients" class="block text-sm font-medium text-gray-700">Ingredients</label>
             <button type="button" 
                     (click)="addIngredient()" 
                     class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
@@ -265,32 +265,32 @@
           
           <div class="space-y-4">
             <div *ngFor="let ingredient of newRecipe.ingredients; let i = index" 
-                 class="flex items-center space-x-4 bg-gray-50 p-4 rounded-lg">
+                 class="flex items-center p-4 space-x-4 rounded-lg bg-gray-50">
               <div class="flex-1">
                 <input type="text" 
                        [name]="'ingredientName' + i" 
                        [(ngModel)]="ingredient.name" 
                        placeholder="Name" 
-                       class="block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+                       class="block w-full border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
               </div>
               <div class="flex-1">
                 <input type="number" 
                        [name]="'ingredientAmount' + i" 
                        [(ngModel)]="ingredient.amount" 
                        placeholder="Amount" 
-                       class="block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+                       class="block w-full border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
               </div>
               <div class="flex-1">
                 <input type="text" 
                        [name]="'ingredientUnit' + i" 
                        [(ngModel)]="ingredient.unit" 
                        placeholder="Unit" 
-                       class="block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+                       class="block w-full border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
               </div>
               <button type="button" 
                       (click)="removeIngredient(i)" 
-                      class="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      class="inline-flex items-center p-2 text-white bg-red-600 border border-transparent rounded-full shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -305,7 +305,7 @@
                     name="instructions" 
                     rows="4" 
                     [(ngModel)]="newRecipe.instructions" 
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm"
+                    class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm"
                     placeholder="Enter cooking instructions..."></textarea>
         </div>
       
@@ -313,7 +313,7 @@
         <div class="flex justify-end">
           <button type="submit" 
                   [disabled]="recipeForm.invalid" 
-                  class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed">
+                  class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed">
             {{editMode ? 'Update Recipe' : 'Add Recipe'}}
           </button>
         </div>

@@ -1,8 +1,8 @@
 <app-navbar class="sticky top-0 z-50 bg-white shadow-md"></app-navbar>
 
 <!-- Main Container -->
-<div class="min-h-screen bg-gray-50 py-12">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen py-12 pt-32 bg-gray-50 ">
+  <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
     <!-- Header -->
     <div class="flex items-center justify-between mb-8">
       <h1 class="text-3xl font-bold text-gray-900">Shopping Cart</h1>
@@ -13,7 +13,7 @@
     <div class="space-y-8">
       <!-- Items List -->
       <div *ngIf="updatedShoppingList.length > 0; else emptyCart" 
-           class="bg-white rounded-xl shadow-sm divide-y divide-gray-100">
+           class="bg-white divide-y divide-gray-100 shadow-sm rounded-xl">
         <!-- Cart Item -->
         <div *ngFor="let recipe of updatedShoppingList" 
              class="p-6 transition-all hover:bg-gray-50">
@@ -22,7 +22,7 @@
             <div class="flex-shrink-0">
               <img [src]="recipe.imageUrl" 
                    [alt]="recipe.title"
-                   class="w-24 h-24 rounded-lg object-cover shadow-sm" />
+                   class="object-cover w-24 h-24 rounded-lg shadow-sm" />
             </div>
 
             <!-- Content -->
@@ -38,9 +38,9 @@
                 </div>
                 <!-- Delete Button -->
                 <button (click)="deleteRecipe(recipe.id)" 
-                        class="text-gray-400 hover:text-red-500 transition-colors">
+                        class="text-gray-400 transition-colors hover:text-red-500">
                   <svg xmlns="http://www.w3.org/2000/svg" 
-                       class="h-5 w-5" 
+                       class="w-5 h-5" 
                        fill="none" 
                        viewBox="0 0 24 24" 
                        stroke="currentColor">
@@ -54,11 +54,11 @@
 
               <!-- Ingredients -->
               <div class="mt-4">
-                <h4 class="text-sm font-medium text-gray-900 mb-2">Ingredients:</h4>
+                <h4 class="mb-2 text-sm font-medium text-gray-900">Ingredients:</h4>
                 <div class="grid grid-cols-2 gap-2">
                   <div *ngFor="let ingredient of recipe.ingredients" 
                        class="flex items-center text-sm text-gray-600">
-                    <span class="w-2 h-2 bg-emerald-400 rounded-full mr-2"></span>
+                    <span class="w-2 h-2 mr-2 rounded-full bg-emerald-400"></span>
                     {{ ingredient.name }}
                     <span class="ml-1 font-medium">{{ ingredient.amount }}g</span>
                   </div>
@@ -71,9 +71,9 @@
 
       <!-- Empty State -->
       <ng-template #emptyCart>
-        <div class="text-center py-16 bg-white rounded-xl shadow-sm">
+        <div class="py-16 text-center bg-white shadow-sm rounded-xl">
           <svg xmlns="http://www.w3.org/2000/svg" 
-               class="h-16 w-16 mx-auto text-gray-400 mb-4" 
+               class="w-16 h-16 mx-auto mb-4 text-gray-400" 
                fill="none" 
                viewBox="0 0 24 24" 
                stroke="currentColor">
@@ -82,14 +82,14 @@
                   stroke-width="2" 
                   d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
           </svg>
-          <h3 class="text-lg font-medium text-gray-900 mb-1">Your cart is empty</h3>
+          <h3 class="mb-1 text-lg font-medium text-gray-900">Your cart is empty</h3>
           <p class="text-gray-500">Add some recipes to get started!</p>
         </div>
       </ng-template>
 
       <!-- Total Section -->
       <div *ngIf="updatedShoppingList.length > 0" 
-           class="bg-white rounded-xl shadow-sm p-6">
+           class="p-6 bg-white shadow-sm rounded-xl">
         <div class="flex items-center justify-between">
           <div>
             <h3 class="text-lg font-semibold text-gray-900">Total Price</h3>

@@ -15,7 +15,7 @@ export class RecipeService {
     private readonly shoppingList = new BehaviorSubject<Recipe[]>([]);
     shoppingList$ = this.shoppingList.asObservable();
 
-    constructor(private http: HttpClient) {
+    constructor(private readonly http: HttpClient) {
     }
 
    getAllRecipes(): Observable<Recipe[]> {
