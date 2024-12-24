@@ -25,7 +25,7 @@ export interface Recipe {
   userId: string;
   cuisine?: string;
   instructions: string[]; // Added instructions property here
-  timeSlot: 'Breakfast' | 'Lunch' | 'Dinner'
+  timeSlot?: 'Breakfast' | 'Lunch' | 'Dinner';
   difficulty?: 'Easy' | 'Medium' | 'Hard';
   rating?: number;
   ratings?: Rating[];

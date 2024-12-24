@@ -1,101 +1,59 @@
-<app-navbar class="sticky top-0 z-50 bg-white shadow-md"></app-navbar>
+<div class="min-h-screen font-sans antialiased bg-gradient-to-br from-gray-50 to-gray-100">
+  <app-navbar></app-navbar>
 
-<div class="min-h-screen font-sans antialiased bg-gray-100">
-  <div class="container px-4 py-16 mx-auto sm:px-6 lg:px-8">
-    <h2 class="mb-16 text-5xl font-extrabold text-center text-transparent md:text-6xl bg-gradient-to-r from-emerald-500 to-lime-600 bg-clip-text">
-      Plan Your Delicious Week
-    </h2>
+  <main class="container px-4 py-16 mx-auto sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <header class="mb-16 text-center">
+        <h1 class="text-4xl font-extrabold sm:text-5xl md:text-6xl">
+          <span class="text-transparent bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text">
+            Plan Your Delicious Week
+          </span>
+        </h1>
+        <p class="mt-4 text-xl text-gray-600">Organize your meals and create a perfect balance</p>
+      </header>
 
-    <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
-      @for (time of timeSlot; track time) {
-        <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
-          <div class="px-6 py-5 bg-gradient-to-r from-emerald-500 to-lime-600">
-            <h3 class="text-xl font-semibold tracking-wide text-center text-white uppercase">
-              {{ time }}
-            </h3>
-          </div>
-          <div class="p-6">
-            @for (recipe of getRecipesByTimeSlot(time); track recipe._id) {
-              <div class="pb-8 mb-8 border-b border-gray-200 last:border-b-0">
-                <div class="relative">
-                  <img
-                    class="object-cover w-full h-64 mb-5 rounded-xl"
-                    [src]="recipe.imageUrl"
-                    [alt]="recipe.title"
-                    loading="lazy"
-                  />
-                  <button
-                    (click)="removeFromList(recipe._id)"
-                    class="absolute top-4 right-4 flex items-center justify-center w-8 h-8 bg-white rounded-full shadow-md text-red-600 hover:bg-red-100 transition-colors"
-                    aria-label="Remove Recipe"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M18 6 6 18M6 6l12 12"/>
-                    </svg>
-                  </button>
-                </div>
-                <div class="px-2">
-                  <h4 class="mb-3 text-xl font-semibold text-gray-900">
-                    {{ recipe.title }}
-                  </h4>
-                  <div class="flex items-center mb-4 text-gray-600">
-                    <span class="mr-5 text-sm flex items-center gap-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M12 6v6l4 2"/>
-                      </svg>
-                      {{ recipe.cookingTime }} min
-                    </span>
-                    <span class="text-sm flex items-center gap-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2v20M8 4v16M16 4v16"/>
-                      </svg>
-                      {{ recipe.calories }} cal
-                    </span>
-                  </div>
-                  <p class="mb-2 font-medium text-gray-700">Ingredients:</p>
-                  <ul class="flex flex-wrap gap-2 mb-4">
-                    @for (ingredient of recipe.ingredients; track ingredient.name) {
-                      <li class="px-3 py-1 text-sm font-medium bg-emerald-100 text-emerald-700 rounded-full">
-                        {{ ingredient.name }}:
-                        <span class="text-emerald-600">{{ ingredient.amount }}</span>
-                      </li>
-                    }
-                  </ul>
-                </div>
-              </div>
-            }
-          </div>
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        @for (time of timeSlot; track time) {
+          <app-time-slot
+            [timeSlot]="time"
+            [recipes]="getRecipesByTimeSlot(time)"
+            (removeRecipe)="removeFromList($event)"
+          ></app-time-slot>
+        }
+      </div>
+
+      <div class="max-w-xl mx-auto mt-16 text-center">
+        <div class="p-8 bg-white shadow-lg rounded-xl">
+          <h3 class="mb-2 text-2xl font-bold text-gray-900">
+            Total Weekly Cost
+          </h3>
+          <p class="mb-6 text-4xl font-extrabold text-emerald-600">
+            ${{ totalCost.toFixed(2) }}
+          </p>
+          
+          @if (recipes.length !== 0) {
+            <button
+              (click)="clearList()"
+              class="inline-flex items-center justify-center w-full gap-2 px-8 py-3 font-semibold text-white transition-all duration-300 transform bg-red-500 rounded-full sm:w-auto hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 hover:scale-105"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/>
+              </svg>
+              Clear Meal Plan
+            </button>
+          }
         </div>
-      }
-    </div>
 
-    <div class="mt-16 text-center">
-      <h3 class="mb-6 text-3xl font-semibold text-emerald-700">
-        Total Cost: <span class="font-bold text-gray-800">${{ totalCost }}</span>
-      </h3>
-      <div class="flex justify-center">
-        @if (recipes.length !== 0) {
-          <button
-            (click)="clearList()"
-            class="inline-flex items-center gap-2 px-8 py-3 font-semibold text-white transition-colors duration-300 bg-red-500 rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/>
-            </svg>
-            Clear Meal Plan
-          </button>
+        @if (recipes.length === 0) {
+          <div class="mt-8 text-center">
+            <p class="italic text-gray-500">
+              Your meal plan is currently empty. Start adding some delicious recipes!
+            </p>
+          </div>
         }
       </div>
     </div>
+  </main>
 
-    @if (recipes.length === 0) {
-      <p class="mt-12 italic text-center text-gray-500">
-        Your meal plan is currently empty. Start adding some delicious recipes!
-      </p>
-    }
-  </div>
+  <app-footer></app-footer>
 </div>
-
-
-<app-footer></app-footer>

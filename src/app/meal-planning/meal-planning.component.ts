@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from "../footer/footer.component";
+import { TimeSlotComponent } from "./time-slot.component";
 
 @Component({
   selector: 'app-meal-planning',
@@ -24,7 +25,8 @@ import { FooterComponent } from "../footer/footer.component";
     CommonModule,
     MatListModule,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    TimeSlotComponent
 ],
 })
 export class MealPlanningComponent implements OnInit {
